@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<!-- replace header start -->
+
+<head th:replace="common/header :: common-header">
+	<!-- replace header end -->
+
+<body>
+	<!-- replace navbar start -->
+	<div th:replace="common/header :: navbar "></div>
+	<!-- replace navbar end -->
+
+	<!-- Container start -->
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline"><span>User Account</span></h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/images/bookstore.jpg" class="img-responsive" style="width:55%; height:55%" />
+			</div>
+		</div>
+		<hr style="position:absolute; width:100%; height:6px; background-color: #333; z-index:-1; margin-top:-80px;" />
+		<img class="img-responsive" src="/images/wood.png" style="margin-top: -75px;" />
+
+		<div class="row" style="margin-top: 120px;">
+			<div class="col-xs-9 col-xs-offset-3">
+
+				<!-- Nav tabs start -->
+				<ul class="nav nav-tabs">
+					<li><a href="#tab-1" data-toggle="tab"><span style="color:red;">Create new account</span></a></li>
+					<li><a href="#tab-2" data-toggle="tab"><span style="color:red;">Log in</span></a></li>
+					<li><a href="#tab-3" data-toggle="tab"><span style="color:red;">Forget Password</span></a></li>
+				</ul>
+				<!-- Nav tabs end -->
+
+				<!-- tab panels start -->
+				<div class="tab-content">
+					<!-- create new account start -->
+					<div class="tab-pane fage" id="tab-1">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form action="">
+										<div class="form-group">
+											<label for="newUsername">* Username: </label>
+											<input id="newUsername" name="username" type="text" class="form-control">
+											<p style="color: #828282;">Enter your user name here. </p>
+										</div>
+										<div class="form-group">
+											<label for="email">* Email: </label>
+											<input id="email" name="email" type="text" class="form-control">
+											<p style="color: #828282;">Enter your email here. </p>
+										</div>
+										<button class="btn btn-primary">Create new account</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- create new account end -->
+					<!-- login start -->
+					<div class="tab-pane fage" id="tab-2">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form action=""></form>
+									<div class="form-group">
+										<label for="newUsername">* Username: </label>
+										<input id="newUsername" name="username" type="text" class="form-control">
+										<p style="color: #828282;">Enter your user name here. </p>
+									</div>
+									<div class="form-group">
+										<label for="password">* Password: </label>
+										<input id="password" name="password" type="password" class="form-control">
+										<p style="color: #828282;">Enter your password here. </p>
+									</div>
+									<button class="btn btn-primary">Login</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- login end -->
+					<!--fogot pass start -->
+					<div class="tab-pane fage" id="tab-3">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form action=""></form>
+									<div class="form-group">
+										<label for="email">* Email: </label>
+										<input id="email" name="email" type="text" class="form-control">
+										<p style="color: #828282;">Enter your registerd email address here. </p>
+									</div>
+									<button class="btn btn-primary">Submit</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--fogot pass end -->
+				</div>
+				<!-- tab panels end -->
+
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- Container end -->
+
+	<!-- Bootstrap core JavaScript
+
+
+	<!-- replace body-bottom-scripts start -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<!-- replace body-bottom-scripts end -->
+
+</body>
+
+</html>
