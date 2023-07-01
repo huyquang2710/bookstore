@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<!-- replace header start -->
+
+<head th:replace="common/header :: common-header">
+	<!-- replace header end -->
+
+<body>
+	<!-- replace navbar start -->
+	<div th:replace="common/header :: navbar "></div>
+	<!-- replace navbar end -->
+
+	<!-- Container start -->
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<h2 class="section-headline"><span th:text="${#strings.toUpperCase(user.username)}"></span></h2>
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/images/bookstore.jpg" class="img-responsive" style="width:55%; height:55%" />
+			</div>
+		</div>
+		<hr style="position:absolute; width:100%; height:6px; background-color: #333; z-index:-1; margin-top:-80px;" />
+		<img class="img-responsive" src="/images/wood.png" style="margin-top: -75px;" />
+
+		<div class="row" style="margin-top: 120px;">
+			<div class="col-xs-9 col-xs-offset-3">
+
+				<!-- Nav tabs start -->
+				<ul class="nav nav-tabs">
+					<li th:classappend="${classActiveEdit}? 'active'"><a href="#tab-1" data-toggle="tab"><span
+								style="color:red;">Edit</span></a></li>
+					<li th:classappend="${classActiveOrders}? 'active'"><a href="#tab-2" data-toggle="tab"><span
+								style="color:red;">Orders</span></a></li>
+					<li th:classappend="${classActiveBilling}? 'active'"><a href="#tab-3" data-toggle="tab"><span
+								style="color:red;">Billing</span></a></li>
+					<li th:classappend="${classActiveShipping}? 'active'"><a href="#tab-3" data-toggle="tab"><span
+								style="color:red;">Shipping</span></a></li>
+				</ul>
+				<!-- Nav tabs end -->
+
+				<!-- tab panels start -->
+				<div class="tab-content">
+					<!-- edit user start -->
+					<div class="tab-pane fage" id="tab-1" th:classappend="${classActiveEdit}? 'active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form th:action="@/updateUserInfo" method="post">
+										<input type="hidden" name="id" th:value="${user.id}">
+
+										<div class="bg-info" th:if="${updateUserInfo}">User Info Updated.</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6">
+													<label for="firstName">First Name</label>
+													<input type="text" class="form-control" id="firstName"
+														name="firstName" th:value="${user.firstName}">
+												</div>
+												<div class="col-xs-6">
+													<label for="lastName">Last Name</label>
+													<input type="text" class="form-control" id="lastName"
+														name="lastName" th:value="${user.lastName}">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="userName">Username</label>
+											<input type="text" class="form-control" id="userName" name="userName"
+												th:value="${userName}">
+										</div>
+										<div class="form-group">
+											<label for="currentPassword">Current Password</label>
+											<input type="text" class="form-control" id="currentPassword"
+												name="currentPassword" th:value="${currentPassword}">
+										</div>
+										<p style="color: #828282;">Enter your current password to change the email
+											address or password.</p>
+										<div class="form-group">
+											<label for="email">Current Password</label>
+											<input type="email" class="form-control" id="email" name="email"
+												th:value="${email}">
+										</div>
+										<p style="color: #828282;">A valid email address. All
+											emails from the system withll be sent to this address. The
+											email address is not made public and will only be used if
+											you wish to receive a new password or wish to receive
+											certain notification.</p>
+										<div class="form-group">
+											<label for="txtNewPassword">Password</label>
+											<input type="password" class="form-control" id="txtNewPassword"
+												name="newPassword">
+										</div>
+										<div class="form-group">
+											<label for="txtConfirmPassword">Confirm Password</label>
+											<input type="password" class="form-control" id="txtConfirmPassword">
+										</div>
+										<p style="color: #828282;">To change the current user password, enter the new
+											password in bot fields.</p>
+
+										<button type="submit" class="btn btn-primary">Create New Account</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- edit user end -->
+					<!-- login start -->
+					<div class="tab-pane fage" id="tab-2" th:classappend="${classActiveLogin}? 'active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form action="">
+										<div class="form-group">
+											<label for="newUsername">* Username: </label>
+											<input id="newUsername" name="username" type="text" class="form-control">
+											<p style="color: #828282;">Enter your user name here. </p>
+										</div>
+										<div class="form-group">
+											<label for="password">* Password: </label>
+											<input id="password" name="password" type="password" class="form-control">
+											<p style="color: #828282;">Enter your password here. </p>
+										</div>
+										<button class="btn btn-primary">Login</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- login end -->
+					<!--fogot pass start -->
+					<div class="tab-pane fage" id="tab-3" th:classappend="${classActiveForgetPassword}? 'active'">
+						<div class="panel-group">
+							<div class="panel panel-default" style="border: none;">
+								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<form action="">
+										<div class="form-group">
+											<label for="email">* Email: </label>
+											<input id="email" name="email" type="text" class="form-control">
+											<p style="color: #828282;">Enter your registerd email address here. </p>
+										</div>
+										<button class="btn btn-primary">Submit</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--fogot pass end -->
+				</div>
+				<!-- tab panels end -->
+
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- Container end -->
+
+	<!-- Bootstrap core JavaScript
+
+
+	<!-- replace body-bottom-scripts start -->
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<!-- replace body-bottom-scripts end -->
+
+</body>
+
+</html>

@@ -29,16 +29,19 @@
 
 				<!-- Nav tabs start -->
 				<ul class="nav nav-tabs">
-					<li th:classappend="${classActiveNewAccount}? 'active'"><a href="#tab-1" data-toggle="tab"><span style="color:red;">Create new account</span></a></li>
-					<li th:classappend="${classActiveLogin}? 'active'"><a href="#tab-2" data-toggle="tab"><span style="color:red;">Log in</span></a></li>
-					<li th:classappend="${classActiveForgetPassword}? 'active'"><a href="#tab-3" data-toggle="tab"><span style="color:red;">Forget Password</span></a></li>
+					<li th:classappend="${classActiveNewAccount}? 'active'"><a href="#tab-1" data-toggle="tab"><span
+								style="color:red;">Create new account</span></a></li>
+					<li th:classappend="${classActiveLogin}? 'active'"><a href="#tab-2" data-toggle="tab"><span
+								style="color:red;">Log in</span></a></li>
+					<li th:classappend="${classActiveForgetPassword}? 'active'"><a href="#tab-3" data-toggle="tab"><span
+								style="color:red;">Forget Password</span></a></li>
 				</ul>
 				<!-- Nav tabs end -->
 
 				<!-- tab panels start -->
 				<div class="tab-content">
 					<!-- create new account start -->
-					<div class="tab-pane fage" id="tab-1"  th:classappend="${classActiveNewUser}? 'active'">
+					<div class="tab-pane fage" id="tab-1" th:classappend="${classActiveNewUser}? 'active'">
 						<div class="panel-group">
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
@@ -66,17 +69,17 @@
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
 									<form action="">
-									<div class="form-group">
-										<label for="newUsername">* Username: </label>
-										<input id="newUsername" name="username" type="text" class="form-control">
-										<p style="color: #828282;">Enter your user name here. </p>
-									</div>
-									<div class="form-group">
-										<label for="password">* Password: </label>
-										<input id="password" name="password" type="password" class="form-control">
-										<p style="color: #828282;">Enter your password here. </p>
-									</div>
-									<button class="btn btn-primary">Login</button>
+										<div class="form-group">
+											<label for="newUsername">* Username: </label>
+											<input id="newUsername" name="username" type="text" class="form-control">
+											<p style="color: #828282;">Enter your user name here. </p>
+										</div>
+										<div class="form-group">
+											<label for="password">* Password: </label>
+											<input id="password" name="password" type="password" class="form-control">
+											<p style="color: #828282;">Enter your password here. </p>
+										</div>
+										<button class="btn btn-primary">Login</button>
 									</form>
 								</div>
 							</div>
@@ -89,12 +92,16 @@
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
 									<form action="">
-									<div class="form-group">
-										<label for="email">* Email: </label>
-										<input id="email" name="email" type="text" class="form-control">
-										<p style="color: #828282;">Enter your registerd email address here. </p>
-									</div>
-									<button class="btn btn-primary">Submit</button>
+										<div class="form-group">
+											<label for="email">* Email: </label>
+											<input id="email" name="email" type="text" class="form-control">
+											<p style="color: #828282;">A valid email address. All
+												emails from the system withll be sent to this address. The
+												email address is not made public and will only be used if
+												you wish to receive a new password or wish to receive
+												certain notification. </p>
+										</div>
+										<button class="btn btn-primary">Submit</button>
 									</form>
 								</div>
 							</div>
