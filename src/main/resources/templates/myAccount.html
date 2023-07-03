@@ -41,23 +41,29 @@
 				<!-- tab panels start -->
 				<div class="tab-content">
 					<!-- create new account start -->
-					<div class="tab-pane fage" id="tab-1" th:classappend="${classActiveNewUser}? 'active'">
+					<div class="tab-pane fage" id="tab-1" th:classappend="${classActiveNewAccount}? 'active'">
 						<div class="panel-group">
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
+									<!-- message start -->
 									<div class="alert alert-info" th:if="${emailSent}">An
 										email has been sent to the email address you just registered.
 										Please validate your email address and update your password
 										information.
 									</div>
+									<!-- message end -->
 									<form th:action="@{/newUser}" method="post">
 										<div class="form-group">
-											<label for="newUsername">* Username: </label>
+											<label for="newUsername">* Username: </label>&nbsp;<span style="color: red;"
+												th:if="${usernameExists}">Username already exists. Choose a different
+												one.</span>
 											<input id="newUsername" name="username" type="text" class="form-control">
 											<p style="color: #828282;">Enter your user name here. </p>
 										</div>
 										<div class="form-group">
-											<label for="email">* Email: </label>
+											<label for="email">* Email: </label>&nbsp;<span style="color: red;"
+												th:if="${emailExists}">Email already exists. Choose a different
+												one.</span>
 											<input id="email" name="email" type="email" class="form-control">
 											<p style="color: #828282;">Enter your email here. </p>
 										</div>
@@ -73,7 +79,9 @@
 						<div class="panel-group">
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
-									<form action="">
+									<div th:if="${param.error != null }" style="color: red;">Incorrect username or
+										password</div>
+									<form th:action="@{/login}" method="post">
 										<div class="form-group">
 											<label for="newUsername">* Username: </label>
 											<input id="newUsername" name="username" type="text" class="form-control">
@@ -84,7 +92,7 @@
 											<input id="password" name="password" type="password" class="form-control">
 											<p style="color: #828282;">Enter your password here. </p>
 										</div>
-										<button class="btn btn-primary">Login</button>
+										<button type="submit" class="btn btn-primary">Login</button>
 									</form>
 								</div>
 							</div>

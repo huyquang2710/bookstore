@@ -58,9 +58,35 @@ public class HomeController {
 	}
 
 	@GetMapping("/forgetPassword")
-	public String forgetPassword(Model model) {
+	public String forgetPassword(Model model, HttpServletRequest request, @ModelAttribute("email") String email) {
 
 		model.addAttribute("classActiveForgetPassword", true);
+
+		User user = userService.findByEmail(email);
+
+		if (user == null) {
+			model.addAttribute("emailNotExist", true);
+			return "myAccount";
+		}
+
+		String password = SecurityUtility.randomPassword();
+		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+		user.setPassword(encryptedPassword);
+
+		userService.save(user);
+
+		String token = UUID.randomUUID().toString();
+		userService.createPasswordResetTokenForUser(user, token);
+
+		String appUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+
+		SimpleMailMessage newEmail = mailConstructor.construcResetTokenEmail(appUrl, request.getLocale(), token, user,
+				password);
+
+		javaMailSender.send(newEmail);
+
+		model.addAttribute("forgetPasswordEmailSent", "true");
+
 		return "myAccount";
 	}
 
@@ -98,7 +124,7 @@ public class HomeController {
 		model.addAttribute("username", username);
 
 		if (userService.findByEmail(userEmail) != null) {
-			model.addAttribute("email", true);
+			model.addAttribute("emailExists", true);
 
 			return "myAccount";
 		}
@@ -127,7 +153,7 @@ public class HomeController {
 
 		String token = UUID.randomUUID().toString();
 		userService.createPasswordResetTokenForUser(user, token);
-		
+
 		String appUrl = "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 
 		SimpleMailMessage simpleMailMessage = mailConstructor.construcResetTokenEmail(appUrl, request.getLocale(),
