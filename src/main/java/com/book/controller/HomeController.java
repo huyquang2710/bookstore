@@ -1,6 +1,7 @@
 package com.book.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.book.domain.Book;
 import com.book.domain.PasswordResetToken;
 import com.book.domain.User;
 import com.book.domain.security.Role;
 import com.book.domain.security.UserRole;
+import com.book.service.BookService;
 import com.book.service.UserService;
 import com.book.service.impl.UserSecurityService;
 import com.book.utility.Constant;
@@ -45,6 +48,9 @@ public class HomeController {
 
 	@Autowired
 	private MailConstructor mailConstructor;
+
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping("/")
 	public String index() {
@@ -164,5 +170,13 @@ public class HomeController {
 		model.addAttribute("emailSent", true);
 
 		return "myAccount";
+	}
+
+	@GetMapping("/bookshelf")
+	public String bookshelf(Model model) {
+		List<Book> bookList = bookService.findAll();
+
+		model.addAttribute("bookList", bookList);
+		return "bookshelf";
 	}
 }
