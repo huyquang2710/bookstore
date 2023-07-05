@@ -16,7 +16,8 @@
         <div class="row" style="margin-bottom: -100px;">
             <div class="col-xs-8">
                 <h2 class="section-headline">
-                    <h2 class="section-headline"><span th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span></h2>
+                    <h2 class="section-headline"><span
+                            th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span></h2>
                 </h2>
             </div>
             <div class="col-xs-4">
@@ -45,18 +46,22 @@
                                 <div th:if="${book != null}" class="">
                                     <div class="row">
                                         <div class="col-xs-3">
+                                            <a th:href="@{/bookDetail?id=} + ${book.id}">
                                             <img th:src="#{adminPath} + @{/images/book/} + ${book.id} + '.png'" alt=""
-                                                class="img-responsive shelf-book">
+                                            class="img-responsive shelf-book"></a>
                                         </div>
                                         <div class="col-xs-9">
-                                            <h4 th:text="${book.title}"></h4>
+                                            <a th:href="@{/bookDetail?id=} + ${book.id}">
+                                            <h4 th:text="${book.title}"></h4></a>
                                             <span th:text="${book.publicationDate}"></span>
                                             <span th:text="${book.author}"></span>
-                                            <span th:text="${#strings.capitalize(book.format)}"></span>
+                                            <a th:href="@{/bookDetail?id=} + ${book.id}"><span
+                                                th:text="${#strings.capitalize(book.format)}"></span></a>
                                             <span th:text="${book.numberOfPages}"><span> pages</span></span>
-                                            <span style="font-size: x-large; color: #db3208;">$
+                                            <a th:href="@{/bookDetail?id=} + ${book.id}"><span
+                                                style="font-size: x-large; color: #db3208;">$
                                                 <span
-                                                    th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
+                                                    th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span></a> 
 
                                             <span style="text-decoration: line-through;">$
                                                 <span
