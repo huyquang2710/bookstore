@@ -2,6 +2,7 @@ package com.book.controller;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.book.domain.Book;
 import com.book.domain.PasswordResetToken;
 import com.book.domain.User;
+import com.book.domain.UserShipping;
 import com.book.domain.security.Role;
 import com.book.domain.security.UserRole;
 import com.book.service.BookService;
@@ -187,20 +189,44 @@ public class HomeController {
 	public String bookdetail(Model model, @PathParam("id") Long id, Principal principal) {
 		List<Book> bookList = bookService.findAll();
 
-		if(principal != null) {
+		if (principal != null) {
 			String username = principal.getName();
 			User user = userService.findByUsername(username);
 			model.addAttribute("user", user);
 		}
-		
+
 		Book book = bookService.findOne(id);
-		
+
 		model.addAttribute("book", book);
-		
-		List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
-		
+
+		List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
 		model.addAttribute("qtyList", qtyList);
 		model.addAttribute("qty", 1);
 		return "bookDetail";
+	}
+
+	@GetMapping("/myProfile")
+	public String myProfile(Model model, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+
+		model.addAttribute("user", user);
+
+		model.addAttribute("userPaymentList", user.getUserPaymentList());
+		model.addAttribute("userShippingList", user.getUserShippingList());
+
+		UserShipping userShipping = new UserShipping();
+		model.addAttribute("userShipping", userShipping);
+
+		model.addAttribute("listOfCreditCards", true);
+		model.addAttribute("listOfShippingAddresses", true);
+
+		List<String> stateList = Constant.listOFStatiesCode;
+		Collections.sort(stateList);
+
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("classActiveEdit", true);
+
+		return "myProfile";
 	}
 }
