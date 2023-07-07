@@ -298,9 +298,11 @@ public class HomeController {
 		userService.updateUserBilling(userBilling, userPayment, user);
 
 		model.addAttribute("user", user);
+		
 		model.addAttribute("userPaymentList", user.getUserPaymentList());
 		model.addAttribute("userShippingList", user.getUserShippingList());
-		model.addAttribute("classActiveShipping", true);
+		
+		model.addAttribute("classActiveBilling", true);
 		model.addAttribute("listOfCreditCards", true);
 		model.addAttribute("listOfShippingAddresses", true);
 
@@ -308,7 +310,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/updateCreditCard")
-	public String updateCreditCard(Model model, @ModelAttribute("id") Long creditCardId, Principal principal) {
+	public String updateCreditCard(Model model, @RequestParam("id") Long creditCardId, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		UserPayment userPayment = userPaymentsService.findOne(creditCardId);
 
@@ -324,7 +326,30 @@ public class HomeController {
 			Collections.sort(stateList);
 			model.addAttribute("stateList", stateList);
 
+			model.addAttribute("listOfCreditCards", true);
 			model.addAttribute("addNewCreditCard", true);
+			model.addAttribute("classActiveBilling", true);
+			model.addAttribute("listOfShippingAddresses", true);
+
+			model.addAttribute("userPaymentList", user.getUserPaymentList());
+			model.addAttribute("userShippingList", user.getUserShippingList());
+
+			return "myProfile";
+		}
+	}
+
+	@GetMapping("/removeCreditCard")
+	public String removeCreditCard(Model model, @ModelAttribute("id") Long creditCardId, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		UserPayment userPayment = userPaymentsService.findOne(creditCardId);
+
+		if (user.getId() != userPayment.getUser().getId()) {
+			return "badRequestPage";
+		} else {
+			model.addAttribute("user", user);
+			userPaymentsService.removeById(creditCardId);
+
+			model.addAttribute("listOfCreditCards", true);
 			model.addAttribute("classActiveBilling", true);
 			model.addAttribute("listOfShippingAddresses", true);
 
