@@ -262,7 +262,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/addNewCreditCard")
-	public String addNewCreditCard(Model model, Principal principal) {
+	public String addNewCreditCardGet(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("user", user);
 
@@ -282,6 +282,23 @@ public class HomeController {
 		model.addAttribute("userPaymentList", user.getUserPaymentList());
 		model.addAttribute("userShippingList", user.getUserShippingList());
 		/* model.addAttribute("orderList", user.orderList()); */
+
+		return "myProfile";
+	}
+
+	@PostMapping("/addNewCreditCard")
+	public String addNewCreditCardPost(@ModelAttribute("userPayment") UserPayment userPayment,
+			@ModelAttribute("userBilling") UserBilling userBilling, Principal principal, Model model) {
+
+		User user = userService.findByUsername(principal.getName());
+		userService.updateUserBilling(userBilling, userPayment, user);
+
+		model.addAttribute("user", user);
+		model.addAttribute("userPaymentList", user.getUserPaymentList());
+		model.addAttribute("userShippingList", user.getUserShippingList());
+		model.addAttribute("classActiveShipping", true);
+		model.addAttribute("listOfCreditCards", true);
+		model.addAttribute("listOfShippingAddresses", true);
 
 		return "myProfile";
 	}

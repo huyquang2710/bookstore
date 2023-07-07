@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.book.domain.PasswordResetToken;
 import com.book.domain.User;
+import com.book.domain.UserBilling;
+import com.book.domain.UserPayment;
 import com.book.domain.security.UserRole;
 import com.book.repository.PasswordResetTokenRepository;
 import com.book.repository.RoleRepository;
@@ -70,6 +72,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user) {
+		userPayment.setUser(user);
+		userPayment.setUserBilling(userBilling);
+		userPayment.setDefaultPayment(true);
+
+		userBilling.setUserPayment(userPayment);
+
+		user.getUserPaymentList().add(userPayment);
+
+		save(user);
 	}
 
 }

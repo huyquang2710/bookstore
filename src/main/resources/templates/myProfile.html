@@ -155,7 +155,7 @@
 																th:value="${userPayment.id}"
 																th:checked="${userPayment.defaultPayment}">
 														</td>
-														<td th:text="$UserPayment.cardName"></td>
+														<td th:text="${userPayment.cardName}"></td>
 														<td>
 															<a th:href="@{/updateCreditCard(id=${userPayment.id})}"><i
 																	class="fa fa-pencil"></i></a>
@@ -190,17 +190,17 @@
 											</div>
 											<div class="form-group">
 												<label for="billingName">* Name</label> <input type="text"
-													class="form-control" id="billingName" placeHoder="Receiver Name"
+													class="form-control" id="billingName" placeHolder="Receiver Name"
 													th:name="userBillingName" required="required"
 													th:value="${userBilling.userBillingName}" />
 											</div>
 											<div class="form-group">
 												<label for="billingAddress">* Street Address</label> <input type="text"
 													class="form-control" id="billingAddress"
-													placeHoder="Street Address 1" th:name="userBillingStreet1"
+													placeholder="Street Address 1" th:name="userBillingStreet1"
 													required="required" th:value="${userBilling.userBillingStreet1}" />
 												<input type="text" class="form-control" id="billingAddress"
-													placeHoder="Street Address 2" th:name="userBillingStreet2"
+													placeHolder="Street Address 2" th:name="userBillingStreet2"
 													th:value="${userBilling.userBillingStreet2}" />
 											</div>
 
@@ -209,7 +209,7 @@
 													<div class="form-group">
 														<label for="billingCity">* City</label> <input type="text"
 															class="form-control" id="billingCity"
-															placeHoder="Billing city" th:name="userBillingCity"
+															placeHolder="Billing city" th:name="userBillingCity"
 															required="required"
 															th:value="${userBilling.userBillingCity}" />
 													</div>
@@ -233,7 +233,7 @@
 													<div class="form-group">
 														<label for="billingZipcode">* Zipcode</label> <input type="text"
 															class="form-control" id="billingZipcode"
-															placeHoder="Billing Zipcode" th:name="userBillingZipcode"
+															placeHolder="Billing Zipcode" th:name="userBillingZipcode"
 															required="required"
 															th:value="${userBilling.userBillingZipcode}" />
 													</div>
@@ -250,7 +250,7 @@
 													<img src="/images/creditcard.png" class="img-responsive" /><br />
 													<div class="form-group">
 														<label for="cardType">* Select Card Type:</label>
-														<select class="form-controll" id="cardType" th:name="type"
+														<select class="form-control" id="cardType" th:name="type"
 															th:value="${userPayment.type}">
 															<option value="visa">Visa
 															<option>
