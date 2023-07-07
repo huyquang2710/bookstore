@@ -134,7 +134,7 @@
 										</li>
 										<li class="breadcrumb-item active">
 											<a th:href="@{/addNewCreditCard}"
-												th:style="${addNewCreditCards} ? 'color:red'">Add(Update) Credit
+												th:style="${addNewCreditCard} ? 'color:red'">Add(Update) Credit
 												Cards</a>
 										</li>
 									</ol>
@@ -158,7 +158,7 @@
 														<td th:text="${userPayment.cardName}"></td>
 														<td>
 															<a th:href="@{/updateCreditCard(id=${userPayment.id})}"><i
-																	class="fa fa-pencil"></i></a>
+																	class="fa fa-pencil"></i></a>&nbsp&nbsp
 															<a th:href="@{/removeCreditCard(id=${userPayment.id})}"><i
 																	class="fa fa-times"></i></a>
 														</td>

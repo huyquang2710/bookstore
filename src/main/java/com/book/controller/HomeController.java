@@ -35,6 +35,7 @@ import com.book.domain.UserShipping;
 import com.book.domain.security.Role;
 import com.book.domain.security.UserRole;
 import com.book.service.BookService;
+import com.book.service.UserPaymentsService;
 import com.book.service.UserService;
 import com.book.service.impl.UserSecurityService;
 import com.book.utility.Constant;
@@ -58,6 +59,9 @@ public class HomeController {
 
 	@Autowired
 	private BookService bookService;
+
+	@Autowired
+	private UserPaymentsService userPaymentsService;
 
 	@GetMapping("/")
 	public String index() {
@@ -301,6 +305,34 @@ public class HomeController {
 		model.addAttribute("listOfShippingAddresses", true);
 
 		return "myProfile";
+	}
+
+	@GetMapping("/updateCreditCard")
+	public String updateCreditCard(Model model, @ModelAttribute("id") Long creditCardId, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		UserPayment userPayment = userPaymentsService.findOne(creditCardId);
+
+		if (user.getId() != userPayment.getUser().getId()) {
+			return "badRequestPage";
+		} else {
+			model.addAttribute("user", user);
+			UserBilling userBilling = userPayment.getUserBilling();
+			model.addAttribute("userBilling", userBilling);
+			model.addAttribute("userPayment", userPayment);
+
+			List<String> stateList = Constant.listOFStatiesCode;
+			Collections.sort(stateList);
+			model.addAttribute("stateList", stateList);
+
+			model.addAttribute("addNewCreditCard", true);
+			model.addAttribute("classActiveBilling", true);
+			model.addAttribute("listOfShippingAddresses", true);
+
+			model.addAttribute("userPaymentList", user.getUserPaymentList());
+			model.addAttribute("userShippingList", user.getUserShippingList());
+
+			return "myProfile";
+		}
 	}
 
 	@GetMapping("/addNewShippingAddress")
