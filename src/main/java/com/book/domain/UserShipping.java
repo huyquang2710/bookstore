@@ -19,10 +19,29 @@ public class UserShipping {
 	private String userShippingState;
 	private String userShippingCountry;
 	private String userShippingZipcode;
+	private boolean userShippingDefault;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	public UserShipping() {
+	}
+
+	public UserShipping(Long id, String userShippingName, String userShippingStreet1, String userShippingStreet2,
+			String userShippingCity, String userShippingState, String userShippingCountry, String userShippingZipcode,
+			boolean userShippingDefault, User user) {
+		this.id = id;
+		this.userShippingName = userShippingName;
+		this.userShippingStreet1 = userShippingStreet1;
+		this.userShippingStreet2 = userShippingStreet2;
+		this.userShippingCity = userShippingCity;
+		this.userShippingState = userShippingState;
+		this.userShippingCountry = userShippingCountry;
+		this.userShippingZipcode = userShippingZipcode;
+		this.userShippingDefault = userShippingDefault;
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
@@ -94,6 +113,23 @@ public class UserShipping {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isUserShippingDefault() {
+		return userShippingDefault;
+	}
+
+	public void setUserShippingDefault(boolean userShippingDefault) {
+		this.userShippingDefault = userShippingDefault;
+	}
+
+	@Override
+	public String toString() {
+		return "UserShipping [id=" + id + ", userShippingName=" + userShippingName + ", userShippingStreet1="
+				+ userShippingStreet1 + ", userShippingStreet2=" + userShippingStreet2 + ", userShippingCity="
+				+ userShippingCity + ", userShippingState=" + userShippingState + ", userShippingCountry="
+				+ userShippingCountry + ", userShippingZipcode=" + userShippingZipcode + ", userShippingDefault="
+				+ userShippingDefault + ", user=" + user + "]";
 	}
 
 }

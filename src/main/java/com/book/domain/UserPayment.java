@@ -30,6 +30,24 @@ public class UserPayment {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
 	private UserBilling userBilling;
 
+	public UserPayment() {
+	}
+
+	public UserPayment(Long id, String type, String cardName, String cardNumber, int expiryMonth, int expiryYear,
+			int cvc, String holderName, boolean defaultPayment, User user, UserBilling userBilling) {
+		this.id = id;
+		this.type = type;
+		this.cardName = cardName;
+		this.cardNumber = cardNumber;
+		this.expiryMonth = expiryMonth;
+		this.expiryYear = expiryYear;
+		this.cvc = cvc;
+		this.holderName = holderName;
+		this.defaultPayment = defaultPayment;
+		this.user = user;
+		this.userBilling = userBilling;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -117,5 +135,15 @@ public class UserPayment {
 	public void setUserBilling(UserBilling userBilling) {
 		this.userBilling = userBilling;
 	}
+
+	@Override
+	public String toString() {
+		return "UserPayment [id=" + id + ", type=" + type + ", cardName=" + cardName + ", cardNumber=" + cardNumber
+				+ ", expiryMonth=" + expiryMonth + ", expiryYear=" + expiryYear + ", cvc=" + cvc + ", holderName="
+				+ holderName + ", defaultPayment=" + defaultPayment + ", user=" + user + ", userBilling=" + userBilling
+				+ "]";
+	}
+	
+	
 
 }

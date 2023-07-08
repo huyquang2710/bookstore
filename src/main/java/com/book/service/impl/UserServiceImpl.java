@@ -1,5 +1,6 @@
 package com.book.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -11,10 +12,13 @@ import com.book.domain.PasswordResetToken;
 import com.book.domain.User;
 import com.book.domain.UserBilling;
 import com.book.domain.UserPayment;
+import com.book.domain.UserShipping;
 import com.book.domain.security.UserRole;
 import com.book.repository.PasswordResetTokenRepository;
 import com.book.repository.RoleRepository;
+import com.book.repository.UserPaymentRepository;
 import com.book.repository.UserRepository;
+import com.book.repository.UserShippingReposioty;
 import com.book.service.UserService;
 
 @Service
@@ -29,6 +33,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private UserPaymentRepository userPaymentRepository;
+
+	@Autowired
+	private UserShippingReposioty userShippingReposioty;
 
 	@Override
 	public PasswordResetToken getPasswordResetToken(String token) {
@@ -85,6 +95,42 @@ public class UserServiceImpl implements UserService {
 		user.getUserPaymentList().add(userPayment);
 
 		save(user);
+	}
+
+	@Override
+	public void setUserDefaultPayment(Long defaultPaymentId, User user) {
+		List<UserPayment> userPaymentList = (List<UserPayment>) userPaymentRepository.findAll();
+		for (UserPayment userPayment : userPaymentList) {
+			if (userPayment.getId() == defaultPaymentId) {
+				userPayment.setDefaultPayment(true);
+				userPaymentRepository.save(userPayment);
+			} else {
+				userPayment.setDefaultPayment(false);
+				userPaymentRepository.save(userPayment);
+			}
+		}
+	}
+
+	@Override
+	public void updateUserShipping(UserShipping userShipping, User user) {
+		userShipping.setUser(user);
+		userShipping.setUserShippingDefault(true);
+		user.getUserShippingList().add(userShipping);
+		save(user);
+	}
+
+	@Override
+	public void setUserDefaultShippingAdddress(Long defaultShippingAdddress, User user) {
+		List<UserShipping> userShippingList = (List<UserShipping>) userShippingReposioty.findAll();
+		for (UserShipping userShipping : userShippingList) {
+			if (userShipping.getId() == defaultShippingAdddress) {
+				userShipping.setUserShippingDefault(false);
+				userShippingReposioty.save(userShipping);
+			} else {
+				userShipping.setUserShippingDefault(false);
+				userShippingReposioty.save(userShipping);
+			}
+		}
 	}
 
 }
