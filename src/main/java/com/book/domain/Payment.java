@@ -21,7 +21,7 @@ public class Payment {
 	private int cvc;
 	private String holderName;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Order order;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")

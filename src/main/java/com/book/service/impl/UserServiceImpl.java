@@ -1,5 +1,6 @@
 package com.book.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -7,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.book.domain.PasswordResetToken;
+import com.book.domain.ShoppingCart;
 import com.book.domain.User;
 import com.book.domain.UserBilling;
 import com.book.domain.UserPayment;
@@ -73,6 +76,13 @@ public class UserServiceImpl implements UserService {
 				roleRepository.save(userRole.getRole());
 			}
 			user.getUserRoles().addAll(userRoles);
+
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setUser(user);
+			user.setShoppingCart(shoppingCart);
+
+			user.setUserShippingList(new ArrayList<UserShipping>());
+			user.setUserPaymentList(new ArrayList<UserPayment>());
 
 			localUser = userRepository.save(user);
 		}

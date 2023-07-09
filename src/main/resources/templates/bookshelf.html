@@ -25,7 +25,6 @@
             </div>
         </div>
         <hr style="position:absolute; width:100%; height:6px; background-color: #333; z-index:-1; margin-top:-80px;" />
-        <img class="img-responsive" src="/images/wood.png" style="margin-top: -75px;" />
 
         <div class="row" style="margin-top: 120px;">
             <div class="col-xs-9 col-xs-offset-3">
@@ -44,12 +43,12 @@
                         <tr class="book-item" data-th-each="book : ${bookList}">
                             <td>
                                 <div th:if="${book != null}" class="">
-                                    <div class="row">
+                                   <div class="row" style="margin-top: 30px;">
                                         <div class="col-xs-3">
-                                            <a th:href="@{/bookDetail?id=} + ${book.id}">
-                                            <img th:src="#{adminPath} + @{/images/book/} + ${book.id} + '.png'" alt=""
-                                            class="img-responsive shelf-book"></a>
-                                        </div>
+											<a th:href="@{/bookDetail?id=}+${book.id}"><img
+												class="img-responsive shelf-book"
+												th:src="#{adminPath}+@{/images/book/}+${book.id}+'.png'" /></a>
+										</div>
                                         <div class="col-xs-9">
                                             <a th:href="@{/bookDetail?id=} + ${book.id}">
                                             <h4 th:text="${book.title}"></h4></a>
@@ -67,10 +66,10 @@
                                                 <span
                                                     th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
 
-                                            <p th:text="${#strings.abbreviate(book.description, 500)}"></p>
+                                            <p th:utext="${#strings.abbreviate(book.description, 50000)}"></p>
                                         </div>
                                     </div>
-                                </div>
+                                </div><hr/>	
                             </td>
                         </tr>
                     </tbody>

@@ -21,9 +21,6 @@ public class BillingAddress {
 	private String billingAddressCountry;
 	private String billingAddressZipcode;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private UserPayment userPayment;
-
 	@OneToOne
 	private Order order;
 
@@ -89,14 +86,6 @@ public class BillingAddress {
 
 	public void setBillingAddressZipcode(String billingAddressZipcode) {
 		this.billingAddressZipcode = billingAddressZipcode;
-	}
-
-	public UserPayment getUserPayment() {
-		return userPayment;
-	}
-
-	public void setUserPayment(UserPayment userPayment) {
-		this.userPayment = userPayment;
 	}
 
 	public Order getOrder() {

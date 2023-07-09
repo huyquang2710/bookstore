@@ -20,7 +20,7 @@ public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private int Qty;
+	private int qty;
 	private BigDecimal subtotal;
 
 	@OneToOne
@@ -31,7 +31,7 @@ public class CartItem {
 	private List<BookToCartItem> bookToCardItems;
 
 	@ManyToOne
-	@JoinColumn(name = "shopping_card_id")
+	@JoinColumn(name = "shopping_cart_id")
 	private ShoppingCart shoppingCart;
 
 	@ManyToOne
@@ -47,11 +47,11 @@ public class CartItem {
 	}
 
 	public int getQty() {
-		return Qty;
+		return qty;
 	}
 
 	public void setQty(int qty) {
-		Qty = qty;
+		this.qty = qty;
 	}
 
 	public BigDecimal getSubtotal() {

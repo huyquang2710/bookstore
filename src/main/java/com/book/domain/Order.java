@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user_order")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
