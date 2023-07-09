@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	private CartItemService cartItemService;
 
 	@Override
-	public Order createOrder(ShoppingCart shoppingCart, ShippingAddress shippingAddress, BillingAddress billingAddress,
+	public synchronized Order createOrder(ShoppingCart shoppingCart, ShippingAddress shippingAddress, BillingAddress billingAddress,
 			Payment payment, String shippingMethod, User user) {
 		Order order = new Order();
 		order.setBillingAddress(billingAddress);
