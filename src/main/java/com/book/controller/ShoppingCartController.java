@@ -84,5 +84,4 @@ public class ShoppingCartController {
 
 		return "redirect:/shoppingCart/cart";
 	}
-
 }

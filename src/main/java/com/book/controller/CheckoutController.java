@@ -5,13 +5,17 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.book.domain.BillingAddress;
 import com.book.domain.CartItem;
+import com.book.domain.Order;
 import com.book.domain.Payment;
 import com.book.domain.ShippingAddress;
 import com.book.domain.ShoppingCart;
@@ -35,6 +39,9 @@ public class CheckoutController {
 	private BillingAddress billingAddress = new BillingAddress();
 	private Payment payment = new Payment();
 
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@Autowired
 	private UserService userService;
 
@@ -221,6 +228,46 @@ public class CheckoutController {
 
 			return "checkout";
 		}
+	}
+
+	@PostMapping("/checkout")
+	public String checkOutPost(@ModelAttribute("shippingAddress") ShippingAddress shippingAddress,
+			@ModelAttribute("billingAddress") BillingAddress billingAddress, @ModelAttribute("payment") Payment payment,
+			@ModelAttribute("billingSameAsShipping") String billingSameAsShipping,
+			@ModelAttribute("shipingMethod") String shippingMethod, Model model, Principal principal) {
+
+		ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
+
+		List<CartItem> cartItems = cartItemService.findByShoppingCart(shoppingCart);
+		model.addAttribute("cartItemList", cartItems);
+
+		if (billingSameAsShipping.equals("true")) {
+			billingAddress.setBillingAddressName(shippingAddress.getShippingAddressName());
+			billingAddress.setBillingAddressStreet1(shippingAddress.getShippingAddressStreet1());
+			billingAddress.setBillingAddressStreet2(shippingAddress.getShippingAddressStreet2());
+			billingAddress.setBillingAddressCity(shippingAddress.getShippingAddressCity());
+			billingAddress.setBillingAddressState(shippingAddress.getShippingAddressState());
+			billingAddress.setBillingAddressCountry(shippingAddress.getShippingAddressCountry());
+			billingAddress.setBillingAddressZipcode(shippingAddress.getShippingAddressZipcode());
+		}
+
+		if (shippingAddress.getShippingAddressStreet1().isEmpty() || shippingAddress.getShippingAddressCity().isEmpty()
+				|| shippingAddress.getShippingAddressState().isEmpty()
+				|| shippingAddress.getShippingAddressName().isEmpty()
+				|| shippingAddress.getShippingAddressZipcode().isEmpty() || payment.getCardNumber().isEmpty()
+				|| payment.getCvc() == 0 || billingAddress.getBillingAddressStreet1().isEmpty()
+				|| billingAddress.getBillingAddressCity().isEmpty() || billingAddress.getBillingAddressState().isEmpty()
+				|| billingAddress.getBillingAddressName().isEmpty()
+				|| billingAddress.getBillingAddressZipcode().isEmpty())
+
+			return "redirect:/checkout?id=" + shoppingCart.getId() + "&missingRequiredField=true";
+
+		User user = userService.findByUsername(principal.getName());
+		
+		Order order = orderService
+				
+		mailSender.send();
+				
 	}
 
 }
