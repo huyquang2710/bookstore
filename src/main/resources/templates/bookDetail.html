@@ -30,7 +30,7 @@
 				<div class="row" style="margin-top: 120px;">
 					<div class="col-xs-3">
 						<a th:href="@{/bookshelf}">Back to book list</a><br/>
-						<img class="img-responsive shelf-book" th:src="#{adminPath}+@{/images/book/}+${book.id}+'.png'" />
+						<img class="img-responsive shelf-book" th:src="#{adminPath}+@{/images/book/}+${book.id}+'.png'" style="height: 600px;"/>
 					</div>
 					
 					<div class="col-xs-9">
@@ -63,7 +63,7 @@
 											</div>
 											<div class="col-xs-6">
 												<h4 th:if="*{book.inStockNumber&gt;10}" style="color: green">In Stock</h4>
-												<h4 th:if="*{book.inStockNumber&lt;10 and book.inStockNumber&gt;0}" style="color: green">Only <span th:text="${book.inStockNumber}"> In Stock</span></h4>
+												<h4 th:if="*{book.inStockNumber&lt;10 and book.inStockNumber&gt;0}" style="color: green">Only <span th:text="${book.inStockNumber}"></span> In Stock</h4>
 												<h4 th:if="*{book.inStockNumber==0}" style="color:darkred;">Unavailable</h4>
 												<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Add to Cart</button>
 											</div>
@@ -74,7 +74,7 @@
 						</div>
 						
 						<hr/>
-						<p th:text="${book.description}"></p>
+						<p th:utext="${book.description}"></p>
 					</div>
 				</div>
 			</form>
