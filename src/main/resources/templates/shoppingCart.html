@@ -94,7 +94,8 @@
                         </div>
 
                         <div class="col-xs-2">
-                            <input hidden="hidden" name="id" th:value="${cartItem.id}" /> <input th:id="${cartItem.id}"
+                            <input hidden="hidden" name="id" th:value="${cartItem.id}" /> 
+                            <input th:id="${cartItem.id}"
                                 th:name="qty" th:disabled="${cartItem.book.inStockNumber == 0}"
                                 class="form-control cartItemQty" th:value="${cartItem.qty}" />
                             <button style="display: none;" th:id="'update-item-' + ${cartItem.id}" type="submit"

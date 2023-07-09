@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.book.domain.Book;
 import com.book.domain.CartItem;
@@ -59,12 +60,29 @@ public class ShoppingCartController {
 
 		if (Integer.parseInt(qty) > book.getInStockNumber()) {
 			model.addAttribute("notEnoughStock", true);
-			return "forward:/bookDetail?id=" + book.getId();
+			return "redriect:/bookDetail?id=" + book.getId();
 		}
 		CartItem cartItem = cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
 		model.addAttribute("addBookSuccess", true);
 
-		return "forward:/bookDetail?id=" + book.getId();
+		return "redirect:/bookDetail?id=" + book.getId();
+	}
+
+	@PostMapping("/updateCartItem")
+	public String updateCartItem(@ModelAttribute("id") Long cartItemId, @ModelAttribute("qty") int qty) {
+		CartItem cartItem = cartItemService.findById(cartItemId);
+		cartItem.setQty(qty);
+
+		cartItemService.updateCartItem(cartItem);
+
+		return "redirect:/shoppingCart/cart";
+	}
+
+	@GetMapping("/removeItem")
+	public String removeItem(@RequestParam("id") Long id) {
+		cartItemService.removeItem(cartItemService.findById(id));
+
+		return "redirect:/shoppingCart/cart";
 	}
 
 }
